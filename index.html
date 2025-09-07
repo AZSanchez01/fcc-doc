@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>JS Documentation</title>
+</head>
+<body>
+    <header id="title"><h1>Git Basics</h1></header>
+    <div class="main-content-wrapper">
+        <nav id="navbar">
+            <div class="nav-wrapper">
+                <header>Contents:</header>
+                <ol>
+                    <li><a href="#Introduction" class="nav-link">Introduction</a></li>
+                    <li><a href="#Setting_Up_Git_&_GitHub" class="nav-link">Setting Up Git & GitHub</a></li>
+                    <li><a href="#Git_Flow" class="nav-link">Git Flow</a></li>
+                    <li><a href="#Git_Methods" class="nav-link">Git Methods</a></li>
+                    <li><a href="#Git_Strategies" class="nav-link">Git Strategies</a></li>
+                    <li><a href="#Git_Practice" class="nav-link">Git Practice</a></li>
+                </ol>
+            </div>
+        </nav>
+        <main id="main-doc">
+            <section id="Introduction" class="main-section">
+                <header><h2>Introduction</h2></header>
+                <section>
+                    <header><h3>What is Git?</h3></header>
+                    <p>Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. It helps developers track changes in their code, collaborate with others, and manage different versions of a project.</p> <br>
+                    <p>Instead of keeping multiple copies of files, Git stores snapshots of your project’s history, allowing you to see what changed, when it changed, and who made the changes. It makes teamwork easier by letting multiple people work on the same project simultaneously without overwriting each other’s work. Git also provides tools to create branches for experimenting or adding new features, and later merge them back into the main project once they’re ready.</p> <br>
+                    <h4>Key aspects of Git:</h4>
+                    <ul>
+                        <li><b>Version Control:</b> Git allows developers to record every change made to a project's files, creating a complete history of modifications.</li>
+                        <li><b>Distributed Nature:</b> Every developer working with a Git repository has a complete, local copy of the entire project history. This offers advantages such as offline work capabilities, faster operations (like committing and branching), and increased resilience to server failures.</li>
+                        <li><b>Collaboration:</b> Enabling multiple developers to work on the same project simultaneously without overwriting each other's work. It provides robust features for branching, merging, and resolving conflicts, allowing teams to integrate changes efficiently.</li>
+                        <li><b>Performance and Flexibility:</b> Its design emphasizes performance in common operations like committing, branching, and merging, and it supports a wide range of workflows tailored to different team needs.</li>
+                    </ul>
+                </section>
+                <section>
+                    <header><h3>What is GitHub?</h3></header>
+                    <p>GitHub is a cloud-based platform built on the Git version control system that allows developers to store, manage, track changes in, and collaborate on code and other project files. It provides a central online location for storing projects in repositories, enabling teams to work together, contribute to each other's work, and build software. GitHub also offers tools for project management, bug tracking, and code improvement within a collaborative environment.</p>
+                </section>
+            </section>
+            <hr>
+            <section id="Setting_Up_Git_&_GitHub" class="main-section">
+                <header><h2>Setting Up Git & GitHub</h2></header>
+                <ol>
+                    <li>
+                        <h3>Install Git</h3>
+                        <p>Open up your terminal and run the following commands line-by-line:</p>
+                        <code>
+                            // On Linux: <br>
+                            sudo apt update <br>
+                            sudo apt upgrade <br>
+                            sudo add-apt-repository ppa:git-core/ppa <br>
+                            sudo apt update <br>
+                            sudo apt install git <br>
+                            git --version <br> <br>
+                            // On MacOS: <br>
+                            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" <br>
+                            brew install git <br>
+                            git --version
+                        </code>
+                    </li>
+                    <li>
+                        <h3>Configure Git & GitHub</h3>
+                        <ol>
+                            <li>Create a <a href="https://github.com/signup">GitHub Account</a></li>
+                            <li>
+                                <p>Open your terminal and run the following commands with the information you signed up with in GitHub:</p>
+                                <code>
+                                    // Run the following commands line-by-line: <br>
+                                    git config --global user.name "Your Name" <br>
+                                    git config --global user.email yourname@example.com <br>
+                                    git config --global init.defaultBranch main <br>
+                                    git config --global pull.rebase false <br> <br>
+                                    // To verify that things are working properly, run the following commands and verify whether they match your name and email: <br>
+                                    git config --get user.name <br>
+                                    git config --get user.email <br>
+                                </code>
+                            </li>
+                            <li>
+                                <p>Create an SSH key</p>
+                                <p>An SSH key is a cryptographically secure identifier used to identify your machine/device. GitHub uses SSH keys to allow you to upload to your repository without having to type in your username and password every time. Run the following commands in your terminal to set it up:</p>
+                                <code>
+                                    // Run this to check if you already have an SSH key installed <br>
+                                    ls ~/.ssh/id_ed25519.pub <br> <br>
+                                    // If a message in the console says "No such file or directory," run this code, else skip this step: <br>
+                                    ssh-keygen -t ed25519   // It will prompt you for a location and password to save the key. Simply hit enter in both cases.
+                                </code>
+                            </li>
+                            <li>
+                                <p>Link your SSH key with GitHub</p>
+                                <p>Log-in to GitHub -> Click your Profile Picture -> Settings -> SSH and GPG Keys -> New SSH Key</p>
+                                <p>Name your key as something descriptive.</p>
+                                <p>Next, copy your public SSH key by running this in the terminal. Highlight and copy the output:</p>
+                                <code>
+                                    cat ~/.ssh/id_ed25519.pub
+                                </code>
+                                <p>Go back to your GitHub browser window and paste the key you copied into the key field. Keep the key type as <i>Authentication Key</i> then click <i>Add SSH Key</i></p>
+                                <p>Congratulations! You're done!</p>
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+            </section>
+            <hr>
+            <section id="Git_Flow" class="main-section">
+                <header><h2>Git Flow</h2></header>
+                <p>A <b>Branch</b> in git represents a version or snapshot of your project. In github, this can be versions of an application, specific bug fixes, or newly created features in your project.</p> <br>
+                <p>A <b>Git Merge or Merging</b> branches is basically taking your branches (different versions/features/fixes) and, you guessed it, merging them together to add/update these new features into your project.</p> <br>
+                <p>The image below showcases the general flow of collaborating in projects using Git & Github.</p> <br>
+                <img src="https://media2.dev.to/dynamic/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fsqxc7kepfadqqkg6sgdn.png" alt="Git Flow"> <br>
+                <p>Here's everything you need to know:</p>
+                <ul>
+                    <li><b>Main:</b> Your Main/Master branch represents the official version releases of your projects out in the public.</li>
+                    <li><b>Hotfix:</b> Your Hotfix branches are quick bug fixes in case your released Main branch contains bugs.</li>
+                    <li><b>Release:</b> Your Release branch is your "release-testing" branch. Here, you start the release cycle for testing, bug fixes, resolving merge conflicts, and other release operations before officially merging up to main. </li>
+                    <li><b>Development:</b> Your Development branch is where you merge all your completed features. Once enough features are merged, you funnel them up to your Release branch for testing and resolving merge conflicts.</li>
+                    <li><b>Feature:</b> Your feature branches are code/features you want to introduce into your project. You can create multiple of them (for multiple features), and once completed, they will typically funnel up to your development branch.</li>
+                </ul>
+            </section>
+            <hr>
+            <section id="Git_Methods" class="main-section">
+                <header><h2>Git Methods</h2></header>
+                <p>Here is a list of basic/common Git commands you should know to work on your project:</p> <br>
+                <ul>
+                    <li>
+                        <h3>Stage & Snapshot</h3>
+                        <code>
+                            // 1. Shows current branch and modified files in working directory <br>
+                            git status <br><br>
+                            // 2. Adds file/s to stage <br>
+                            git add [file/s] <br><br>
+                            // 3. Unstage a file/s <br>
+                            git reset [file/s] <br><br>
+                            // 4. Difference of what is changed but not staged <br>
+                            git diff <br><br>
+                            // 5. Difference of what is staged but not committed <br>
+                            git diff --staged <br><br>
+                            // 6. Commit staged files <br>
+                            git commit -m "[descriptive message]"
+                        </code>
+                    </li>
+                    <li>
+                        <h3>Branch & Merge</h3>
+                        <code>
+                            // 1. Lists all your branches <br>
+                            git branch <br><br>
+                            // 2. Create a new branch with branch name <br>
+                            git branch [branch-name] <br><br>
+                            // 3. Switch to another branch <br>
+                            git checkout [branch-name] <br><br>
+                            // 4. Merge the specified branch into the current one <br>
+                            git merge [branch]
+                        </code>
+                    </li>
+                    <li>
+                        <h3>Inspect & Compare</h3>
+                        <code>
+                            // 1. Shows commit history of current branch <br>
+                            git log <br><br>
+                            // 2. Shows commits on BranchA not in BranchB <br>
+                            git log branchB..branchA <br><br>
+                            // 3. Shows diff of what's in BranchA not in BranchB <br>
+                            git diff branchB...branchA 
+                        </code>
+                    </li>
+                    <li>
+                        <h3>Share & Update</h3>
+                        <code>
+                            // 1. Clones remote repository into local repository (perform once) <br>
+                            git clone [repository-url] <br><br>
+                            // 2. Fetches remote repository into local repository (not merged) <br>
+                            git fetch [remote-repo-alias e.g. origin] <br><br>
+                            // 3. Merge remote branch to current branch <br>
+                            git merge [remote-repo-alias e.g. origin]/[branch-name] <br><br>
+                            // 4. Fetch & Merge commits from tracking remote branch <br>
+                            git pull <br><br>
+                            // 5. Merge the specified branch into the current one <br>
+                            git push [remote-repo-alias e.g. origin] [branch e.g. main]
+                        </code>
+                    </li>
+                    <li>
+                        <h3>Undo or Revert Changes/Commits</h3>
+                        <code>
+                            // Reverts to a commit (A->B->C   ===>  A->B->C->B') <br>
+                            git revert [commit-hash] <br><br>
+                            // Reset to a commit (A->B->C  ===>  A->B) <br>
+                            // Note: soft (none), mixed(resets stage), hard(resets stage and files) <br>
+                            git reset --soft/mixed/hard [commit-hash] <br><br>
+                            // Restore file/s to a previous commit <br>
+                            git restore [file/s]
+                        </code>
+                    </li>
+                </ul>
+            </section>
+            <hr>
+            <section id="Git_Strategies" class="main-section">
+                <header><h2>Git Strategies</h2></header>
+                <p>Here are two basic strategies you can use when working with Git that you can use today! They were created by Sam Livingston-Gray in this higly recommended read to <a href="https://think-like-a-git.net">Think Like (a) Git</a></p> <br>
+                <ul>
+                    <li>
+                        <h3>The Scout Pattern</h3>
+                        <p>Here, you create a new branch off of main as a scout/test branch. You merge your features into the test branch, then merge the test branch to main if you're happy with the result.</p>
+                        <p>Overview:</p>
+                        <ol>
+                            <li>Make sure you're in the right branch with a clean, working slate.</li>
+                            <li>Create a new branch (test_branch). Switch to it.</li>
+                            <li>Do the merge (feature_branch -> test_branch).</li>
+                            <li>Are you happy with the result?</li>
+                            <ul>
+                                <li>Yes: Merge test_branch -> main_branch</li>
+                                <li>No: Delete test_branch</li>
+                            </ul>
+                            <code>
+                                // 1. Must be in main branch! <br>
+                                git status <br> <br>
+                                // 2. Create and go to new branch. <br>
+                                git checkout -b test_branch <br> <br>
+                                // 3. Merge feature branch to test branch <br>
+                                git merge feature_branch <br> <br>
+
+                                // 4. Are you happy? <br>
+                                // Yes, I am! <br>
+                                git checkout main <br>
+                                git merge test_branch <br> <br>
+                                // No, I'm not! <br>
+                                git checkout master <br>
+                                git branch -D test_merge <br>
+                            </code>
+                        </ol>
+                    </li>
+                    <li>
+                        <h3>The Savepoint Pattern</h3>
+                        <p>Here, you create a new branch off of main as a savepoint. You directly merge your features into main, and revert back to your savepoint if you aren't happy with the result.</p>
+                        <p>Overview:</p>
+                        <ol>
+                            <li>Make sure you're in the right branch with a clean, working slate.</li>
+                            <li>Create a new branch (save_branch). Don't switch to it.</li>
+                            <li>Do the merge (feature_branch -> main_branch).</li>
+                            <li>Are you happy with the result?</li>
+                            <ul>
+                                <li>Yes: Delete save_branch.</li>
+                                <li>No: Reset main_branch to save_branch</li>
+                            </ul>
+                            <code>
+                                // 1. Must be in main branch! <br>
+                                git status <br> <br>
+                                // 2. Create new branch. <br>
+                                git branch save_branch <br> <br>
+                                // 3. Merge feature branch to main branch <br>
+                                git merge feature_branch <br> <br>
+
+                                // 4. Are you happy? <br>
+                                // Yes, I am! <br>
+                                git branch -d save_branch <br> <br>
+                                // No, I'm not! <br>
+                                git reset --hard save_branch <br>
+                            </code>
+                        </ol>
+                    </li>
+                </ul>
+            </section>
+            <hr>
+            <section id="Git_Practice" class="main-section">
+                <header><h2>Git Practice</h2></header>
+                <p>Here are a few interactive resources that can help you practice Git!</p>
+                <ul>
+                    <li><a href="https://learngitbranching.js.org">Learn Git Branching</a> is a visual online interactive website to learn and practice basic Git commands.</li>
+                    <li><a href="https://ohmygit.org">Oh my Git!</a> is an interactive game you can download for great practice.</li>
+                    <li><a href="https://gitimmersion.com">Git Immersion</a> is a solid resource for learning and using git in the terminal.</li>
+                    <li><a href="https://think-like-a-git.net">Think Like (a) Git</a> is a digestible read by Sam Livingston-Gray to understanding or visualizing git.</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
